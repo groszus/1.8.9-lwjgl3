@@ -1,6 +1,7 @@
 ## MavenMCP
 MavenMCP **1.8.9** with **LWJGL-3.3.6** \
-Supporting `jdk-17` and higher - recommended to use `jdk-22`
+Supporting `jdk-17` and higher - recommended to use `jdk-22` \
+Based on OptiFine `1.8.9 HD U M6 pre2`
 
 ## Changes
 ```diff
