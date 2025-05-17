@@ -129,7 +129,6 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable
     {
         this.field_147366_g = false;
         ++this.networkTickCount;
-        this.serverController.theProfiler.startSection("keepAlive");
 
         if ((long)this.networkTickCount - this.lastSentPingPacket > 40L)
         {
@@ -139,7 +138,6 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable
             this.sendPacket(new S00PacketKeepAlive(this.field_147378_h));
         }
 
-        this.serverController.theProfiler.endSection();
 
         if (this.chatSpamThresholdCount > 0)
         {

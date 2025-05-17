@@ -184,7 +184,6 @@ public abstract class EntityLivingBase extends Entity
     {
         this.prevSwingProgress = this.swingProgress;
         super.onEntityUpdate();
-        this.worldObj.theProfiler.startSection("livingEntityBaseTick");
         boolean flag = this instanceof EntityPlayer;
 
         if (this.isEntityAlive())
@@ -300,7 +299,6 @@ public abstract class EntityLivingBase extends Entity
         this.prevRotationYawHead = this.rotationYawHead;
         this.prevRotationYaw = this.rotationYaw;
         this.prevRotationPitch = this.rotationPitch;
-        this.worldObj.theProfiler.endSection();
     }
 
     public boolean isChild()
@@ -1596,10 +1594,7 @@ public abstract class EntityLivingBase extends Entity
         }
 
         this.onGroundSpeedFactor += (f3 - this.onGroundSpeedFactor) * 0.3F;
-        this.worldObj.theProfiler.startSection("headTurn");
         f2 = this.updateDistance(f1, f2);
-        this.worldObj.theProfiler.endSection();
-        this.worldObj.theProfiler.startSection("rangeChecks");
 
         while (this.rotationYaw - this.prevRotationYaw < -180.0F)
         {
@@ -1641,7 +1636,6 @@ public abstract class EntityLivingBase extends Entity
             this.prevRotationYawHead += 360.0F;
         }
 
-        this.worldObj.theProfiler.endSection();
         this.movedDistance += f2;
     }
 
@@ -1718,8 +1712,6 @@ public abstract class EntityLivingBase extends Entity
             this.motionZ = 0.0D;
         }
 
-        this.worldObj.theProfiler.startSection("ai");
-
         if (this.isMovementBlocked())
         {
             this.isJumping = false;
@@ -1729,13 +1721,8 @@ public abstract class EntityLivingBase extends Entity
         }
         else if (this.isServerWorld())
         {
-            this.worldObj.theProfiler.startSection("newAi");
             this.updateEntityActionState();
-            this.worldObj.theProfiler.endSection();
         }
-
-        this.worldObj.theProfiler.endSection();
-        this.worldObj.theProfiler.startSection("jump");
 
         if (this.isJumping)
         {
@@ -1758,21 +1745,15 @@ public abstract class EntityLivingBase extends Entity
             this.jumpTicks = 0;
         }
 
-        this.worldObj.theProfiler.endSection();
-        this.worldObj.theProfiler.startSection("travel");
         this.moveStrafing *= 0.98F;
         this.moveForward *= 0.98F;
         this.randomYawVelocity *= 0.9F;
         this.moveEntityWithHeading(this.moveStrafing, this.moveForward);
-        this.worldObj.theProfiler.endSection();
-        this.worldObj.theProfiler.startSection("push");
 
         if (!this.worldObj.isRemote)
         {
             this.collideWithNearbyEntities();
         }
-
-        this.worldObj.theProfiler.endSection();
     }
 
     protected void updateEntityActionState()

@@ -262,8 +262,6 @@ public abstract class Entity implements ICommandSender
 
     public void onEntityUpdate()
     {
-        this.worldObj.theProfiler.startSection("entityBaseTick");
-
         if (this.ridingEntity != null && this.ridingEntity.isDead)
         {
             this.ridingEntity = null;
@@ -278,7 +276,6 @@ public abstract class Entity implements ICommandSender
 
         if (!this.worldObj.isRemote && this.worldObj instanceof WorldServer)
         {
-            this.worldObj.theProfiler.startSection("portal");
             MinecraftServer minecraftserver = ((WorldServer)this.worldObj).getMinecraftServer();
             int i = this.getMaxInPortalTime();
 
@@ -324,8 +321,6 @@ public abstract class Entity implements ICommandSender
             {
                 --this.timeUntilPortal;
             }
-
-            this.worldObj.theProfiler.endSection();
         }
 
         this.spawnRunningParticles();
@@ -374,7 +369,6 @@ public abstract class Entity implements ICommandSender
         }
 
         this.firstUpdate = false;
-        this.worldObj.theProfiler.endSection();
     }
 
     public int getMaxInPortalTime()
@@ -432,7 +426,6 @@ public abstract class Entity implements ICommandSender
         }
         else
         {
-            this.worldObj.theProfiler.startSection("move");
             double d0 = this.posX;
             double d1 = this.posY;
             double d2 = this.posZ;
@@ -640,8 +633,6 @@ public abstract class Entity implements ICommandSender
                 }
             }
 
-            this.worldObj.theProfiler.endSection();
-            this.worldObj.theProfiler.startSection("rest");
             this.resetPositionToBB();
             this.isCollidedHorizontally = d3 != x || d5 != z;
             this.isCollidedVertically = d4 != y;
@@ -758,8 +749,6 @@ public abstract class Entity implements ICommandSender
                 this.playSound("random.fizz", 0.7F, 1.6F + (this.rand.nextFloat() - this.rand.nextFloat()) * 0.4F);
                 this.fire = -this.fireResistance;
             }
-
-            this.worldObj.theProfiler.endSection();
         }
     }
 
@@ -2030,7 +2019,6 @@ public abstract class Entity implements ICommandSender
     {
         if (!this.worldObj.isRemote && !this.isDead)
         {
-            this.worldObj.theProfiler.startSection("changeDimension");
             MinecraftServer minecraftserver = MinecraftServer.getServer();
             int i = this.dimension;
             WorldServer worldserver = minecraftserver.worldServerForDimension(i);
@@ -2045,9 +2033,7 @@ public abstract class Entity implements ICommandSender
 
             this.worldObj.removeEntity(this);
             this.isDead = false;
-            this.worldObj.theProfiler.startSection("reposition");
             minecraftserver.getConfigurationManager().transferEntityToWorld(this, i, worldserver, worldserver1);
-            this.worldObj.theProfiler.endStartSection("reloading");
             Entity entity = EntityList.createEntityByName(EntityList.getEntityString(this), worldserver1);
 
             if (entity != null)
@@ -2064,10 +2050,8 @@ public abstract class Entity implements ICommandSender
             }
 
             this.isDead = true;
-            this.worldObj.theProfiler.endSection();
             worldserver.resetUpdateEntityTick();
             worldserver1.resetUpdateEntityTick();
-            this.worldObj.theProfiler.endSection();
         }
     }
 

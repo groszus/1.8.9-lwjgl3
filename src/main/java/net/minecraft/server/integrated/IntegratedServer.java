@@ -17,7 +17,6 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.PacketThreadUtil;
 import net.minecraft.network.play.server.S2BPacketChangeGameState;
-import net.minecraft.profiler.PlayerUsageSnooper;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.src.Config;
 import net.minecraft.util.BlockPos;
@@ -130,14 +129,14 @@ public class IntegratedServer extends MinecraftServer
 
             if (l == 0) {
                 if (this.isDemo()) {
-                    this.worldServers[l] = (WorldServer) (new DemoWorldServer(this, isavehandler, worldinfo, i1, this.theProfiler)).init();
+                    this.worldServers[l] = (WorldServer) (new DemoWorldServer(this, isavehandler, worldinfo, i1)).init();
                 } else {
-                    this.worldServers[l] = (WorldServer) (new WorldServer(this, isavehandler, worldinfo, i1, this.theProfiler)).init();
+                    this.worldServers[l] = (WorldServer) (new WorldServer(this, isavehandler, worldinfo, i1)).init();
                 }
 
                 this.worldServers[l].initialize(this.theWorldSettings);
             } else {
-                this.worldServers[l] = (WorldServer) (new WorldServerMulti(this, isavehandler, i1, this.worldServers[0], this.theProfiler)).init();
+                this.worldServers[l] = (WorldServer) (new WorldServerMulti(this, isavehandler, i1, this.worldServers[0])).init();
             }
 
             this.worldServers[l].addWorldAccess(new WorldManager(this, this.worldServers[l]));
@@ -335,12 +334,6 @@ public class IntegratedServer extends MinecraftServer
         {
             this.mc.theWorld.getWorldInfo().setDifficulty(difficulty);
         }
-    }
-
-    public void addServerStatsToSnooper(PlayerUsageSnooper playerSnooper)
-    {
-        super.addServerStatsToSnooper(playerSnooper);
-        playerSnooper.addClientStat("snooper_partner", this.mc.getPlayerUsageSnooper().getUniqueID());
     }
 
     public boolean isSnooperEnabled()

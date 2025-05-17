@@ -8,7 +8,6 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.settings.GameSettings;
-import net.minecraft.profiler.Profiler;
 import net.minecraft.src.Config;
 import net.optifine.util.MemoryMonitor;
 import org.lwjgl.opengl.GL11;
@@ -17,7 +16,6 @@ public class Lagometer
 {
     private static Minecraft mc;
     private static GameSettings gameSettings;
-    private static Profiler profiler;
     public static boolean active = false;
     public static Lagometer.TimerNano timerTick = new Lagometer.TimerNano();
     public static Lagometer.TimerNano timerScheduledExecutables = new Lagometer.TimerNano();
@@ -45,7 +43,6 @@ public class Lagometer
         {
             mc = Minecraft.getMinecraft();
             gameSettings = mc.gameSettings;
-            profiler = mc.mcProfiler;
         }
 
         if (gameSettings.showDebugInfo && (gameSettings.ofLagometer || gameSettings.showLagometer))

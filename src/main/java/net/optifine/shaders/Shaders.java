@@ -3955,7 +3955,6 @@ public class Shaders
         checkGLError("pre beginRender");
         checkWorldChanged(mc.theWorld);
         mc = minecraft;
-        mc.mcProfiler.startSection("init");
         entityRenderer = mc.entityRenderer;
 
         if (!isShaderPackInitialized)
@@ -4094,7 +4093,6 @@ public class Shaders
         modelView.position(0);
         checkGLError("beginRender");
         ShadersRender.renderShadowMap(entityRenderer, 0, partialTicks, finishTimeNano);
-        mc.mcProfiler.endSection();
         EXTFramebufferObject.glBindFramebufferEXT(36160, dfb);
 
         for (int j = 0; j < usedColorBuffers; ++j)
@@ -5561,7 +5559,6 @@ public class Shaders
 
     public static void mcProfilerEndSection()
     {
-        mc.mcProfiler.endSection();
     }
 
     public static String getShaderPackName()

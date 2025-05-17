@@ -6,6 +6,7 @@ Supporting `jdk-17` and higher - recommended to use `jdk-22`
 ```diff
 + implemented lwjgl3
 + code cleanup
+- removed profiler
 - removed forge reflector
 - removed realms
 ```

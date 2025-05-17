@@ -257,8 +257,6 @@ public class Chunk
 
     private void recheckGaps(boolean p_150803_1_)
     {
-        this.worldObj.theProfiler.startSection("recheckGaps");
-
         if (this.worldObj.isAreaLoaded(new BlockPos(this.xPosition * 16 + 8, 0, this.zPosition * 16 + 8), 16))
         {
             for (int i = 0; i < 16; ++i)
@@ -287,7 +285,6 @@ public class Chunk
 
                         if (p_150803_1_)
                         {
-                            this.worldObj.theProfiler.endSection();
                             return;
                         }
                     }
@@ -296,8 +293,6 @@ public class Chunk
 
             this.isGapLightingUpdated = false;
         }
-
-        this.worldObj.theProfiler.endSection();
     }
 
     private void checkSkylightNeighborHeight(int x, int z, int maxValue)
