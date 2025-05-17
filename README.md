@@ -3,11 +3,11 @@ MavenMCP **1.8.9** with **LWJGL-3.3.6** \
 Supporting `jdk-17` and higher - recommended to use `jdk-22`
 
 ## Changes
-```yaml
-[+] implemented lwjgl3
-[-] removed forge reflector
-[+] removed realms
-[+] code cleanup
+```diff
++ implemented lwjgl3
++ code cleanup
+- removed forge reflector
+- removed realms
 ```
 
 ## Usage
